@@ -19,11 +19,19 @@ public class ElectricPokemon extends Pokemon {
      * Our ElectricPokemon constructor.
      * Constructs a new ElectricPokemon with the Pokemon Type of electric.
      * ElectricPokemon's specialty attack is THUNDERBOLT
+     * @param setHP sets hp
+     * @param setAttack sets hp
+     * @param setDefense sets hp
+     * @param setName sets hp
      */
-    public ElectricPokemon() {
+    public ElectricPokemon(final int setHP, final int setAttack, final int setDefense, final String setName) {
         pokeType = PokemonType.ELECTRIC;
         specialtyAttack = "THUNDERBOLT";
         specialtyProbability = specProb;
+        this.setHitPoints(setHP);
+        this.setAttackLevel(setAttack);
+        this.setDefenseLevel(setDefense);
+        this.setName(setName);
     }
 
     /**
@@ -59,6 +67,15 @@ public class ElectricPokemon extends Pokemon {
      * Implement this.
      */
     public boolean attack(final Pokemon opponent) {
+        super.attack(opponent);
+        if (opponent.getHitPoints() > 0 && !opponent.pokeType.equals(PokemonType.ELECTRIC)
+                && Math.random() < specialtyProbability) {
+            System.out.println(this.getName() + " executes a specialty attack... "
+                    + specialtyAttack + "!!!");
+            opponent.setHitPoints(0);
+            System.out.println(opponent.getName() + " has been defeated!");
+            return true;
+        }
         return false;
     }
 

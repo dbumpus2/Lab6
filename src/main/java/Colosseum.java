@@ -103,8 +103,50 @@ public class Colosseum {
      *         <p>
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        int pokeTypeChoice;
+        System.out.print("Select from the following Pokemon Types:\n1 - Electric Pokemon\n2 - Fire Pokemon\n3 - Water Pokemon\n");
+        pokeTypeChoice = myScan.nextInt();
+        while (pokeTypeChoice < 1 || pokeTypeChoice > 3) {
+            System.out.print("Select from the following Pokemon Types:\n1 - Electric Pokemon\n2 - Fire Pokemon\n3 - Water Pokemon\n");
+            pokeTypeChoice = myScan.nextInt();
+        }
+        myScan.nextLine();
+        System.out.print("Please name your Pokemon: ");
+        String pokeName = myScan.nextLine();
+        int pokeHP;
+        System.out.print("How many hit points will it have? (1-50): ");
+        pokeHP = myScan.nextInt();
+        while (pokeHP < 1 || pokeHP > MAX_HIT_POINTS) {
+            System.out.print("Sorry. Hit points must be betwen 1 and 50: ");
+            pokeHP = myScan.nextInt();
+        }
+        int pokeAttack;
+        System.out.print("Split fifty points between attack level and"
+                + " defense level\nEnter your attack level (1-49): ");
+        pokeAttack = myScan.nextInt();
+        while (pokeAttack < 1 || pokeAttack >= MAX_HIT_POINTS) {
+            System.out.print("Sorry. The attack level must be between 1 and 49: ");
+            pokeAttack = myScan.nextInt();
+        }
+        int pokeDefense;
+        System.out.print("Enter your defense level (1-" + (MAX_HIT_POINTS - pokeAttack) + "): ");
+        pokeDefense = myScan.nextInt();
+        while (pokeDefense < 1 || pokeDefense > MAX_HIT_POINTS - pokeAttack) {
+            System.out.print("Sorry. The defense level must be between 1 and "
+                    + (MAX_HIT_POINTS - pokeAttack) + ": ");
+            pokeDefense = myScan.nextInt();
+        }
+        myScan.nextLine();
+        //Pokemon tempPokemon = new Pokemon(pokeHP, pokeAttack, pokeDefense, pokeName);
+        if (pokeTypeChoice == 1) {
+            return new ElectricPokemon(pokeHP, pokeAttack, pokeDefense, pokeName);
+        } else if (pokeTypeChoice == 2) {
+            return new FirePokemon(pokeHP, pokeAttack, pokeDefense, pokeName);
+        } else {
+            return new WaterPokemon(pokeHP, pokeAttack, pokeDefense, pokeName);
+        }
+        //Pokemon returnPokemon = null;
+        //return returnPokemon;
     }
 
     /**
